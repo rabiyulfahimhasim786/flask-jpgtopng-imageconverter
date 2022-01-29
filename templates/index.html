@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+{% block content %} 
+<div class="container">
+    <header> JPG To PNG Converter</header>
+    <form method="POST" action="{{ url_for('index') }}" enctype="multipart/form-data">
+        <div id="select-area">
+            <input class="file-input" type="file" name="file" hidden>
+            <i class="fas fa-file-image"></i>
+            <p>Select JPG</p>
+        </div>
+        {% if mimetype %}
+        <div class="mdg">
+            <script>alert("mimetype Not Match {{ mimetype }}");</script>
+        </div>
+        {% endif %}
+        <div class="preview" id="preview">
+            <img id="file-preview">
+            <i class="fas fa-trash" id="remove-img">delete</i>
+        </div>
+        {% if filename %}
+        <a href="{{ filename }}" download class ="btn-convert" id="download-btn">Download</a>
+        <a href={{ url_for('index') }} class ="btn-convert" id="reset">Reset</a>
+        <script>
+            preview = document.getElementById("file-preview");
+            preview.src = "{{ filename }}";
+            document.getElementById("select-area").style.display = "none";
+            Downlaod_Btn = document.getElementById("download-btn");
+            Downlaod_Btn.style.outline = "none";
+
+        </script>
+        {% else %}
+        <input type="submit" id ='validate' class="btn-convert" value="Convert To PNG">
+        {% endif %}
+    </form>
+</div>
+{% endblock %} 
